@@ -1,0 +1,52 @@
+# DDL - Create
+create database store;
+
+create table countries (
+    name varchar(20) unique,
+    continent_name varchar(20) not null
+);
+
+create table users (
+    id int primary key,
+    full_name varchar(20),
+    email varchar(20) unique ,
+    gender char(1) check (gender in ('m', 'f')),
+    date_of_birth varchar(15)  ,
+    created_at datetime,
+    country_code int
+);
+
+create table orders (
+    id int primary key,
+    user_id int not null ,
+    status varchar(10) check (status in ('start', 'finish'))
+);
+
+create table order_products (
+    order_id int not null,
+    product_id int not null,
+    quantity int default 0
+);
+
+create table products (
+      id int primary key,
+    name varchar(10) not null,
+    price int default 0,
+    status varchar(10) check (status in ('valid', 'expired')),
+    created_at datetime
+
+);
+
+# DDL - Alter
+alter table products modify created_at datetime;
+
+# DML - Insert
+insert into countries (name, continent_name) values ('reem', 'Riyadh');
+insert into users ( email, gender) values ( 'reem@gmail.com', 'f');
+insert into orders (user_id, status) values (1, 'start');
+insert into products (name, price, status) values ('t-Shert', 100, 'valid');
+insert into order_products (order_id, product_id, quantity) values (1, 1, 1);
+# DML - Update
+update countries set continent_name = 'abha' where name = 'Reem';
+# DML - Delete
+delete from products where id = '1';
